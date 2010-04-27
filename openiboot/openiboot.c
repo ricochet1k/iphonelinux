@@ -61,6 +61,8 @@ CommandQueue* commandQueue = NULL;
 static void startUSB();
 
 void OpenIBootStart() {
+	Reboot();
+	while (1) {}
 	setup_openiboot();
 	pmu_charge_settings(TRUE, FALSE, FALSE);
 
@@ -400,11 +402,11 @@ static int setup_openiboot() {
 
 	lcd_setup();
 	framebuffer_setup();
-
+#ifndef CONFIG_IPOD2G
 	audiohw_init();
 
 	camera_setup();
-
+#endif
 	return 0;
 }
 
