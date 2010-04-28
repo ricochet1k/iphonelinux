@@ -34,6 +34,7 @@
 #include "ftl.h"
 #include "hfs/bdev.h"
 #include "hfs/fs.h"
+#include "scripting.h"
 
 #include "radio.h"
 #include "wm8958.h"
@@ -100,7 +101,7 @@ void OpenIBootStart() {
 #endif
 
 	pmu_set_iboot_stage(0);
-
+	startScripting("openiboot"); //start script mode if there is a file
 	bufferPrintf("-----------------------------------------------\r\n");
 	bufferPrintf("              WELCOME TO OPENIBOOT\r\n");
 	bufferPrintf("-----------------------------------------------\r\n");
@@ -291,7 +292,7 @@ static void dataReceived(uint32_t token) {
 	} else {
 		*dataRecvPtr = '\0';
 		addToCommandQueue((char*)dataRecvBuffer);
-	}	
+	}
 }
 
 static void dataSent(uint32_t token) {
@@ -310,7 +311,7 @@ static void dataSent(uint32_t token) {
 			usb_send_bulk(1, dataSendBuffer, toRead);
 		}
 		left -= toRead;
-	}	
+	}
 }
 
 static void controlSent(uint32_t token) {
