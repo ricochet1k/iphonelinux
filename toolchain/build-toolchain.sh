@@ -245,7 +245,7 @@ stage_newlib_configure() {
 stage_makesymlink() {
 	echo "- Making arm-elf-cc symlink"
 	cd $TOOLCHAIN_PATH/newlib-build
-	ln -s arm-elf-gcc $PREFIX/bin/arm-elf-cc
+	ln -sf arm-elf-gcc $PREFIX/bin/arm-elf-cc
 	checkRet "Failed to create symlink"
 }
 
